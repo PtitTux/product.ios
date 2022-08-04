@@ -46,4 +46,18 @@ class UserRepositoryTest
 		assertThat(user.getLastConnection()).isEqualTo(now);
 		assertThat(user.isStatus()).isTrue();
 	}
+
+	@Test
+	void createUserWithConstructor() {
+		UserEntity user = new UserEntity("email","password","name", now,true);
+
+		user = userRepository.save(user);
+
+		assertThat(user.getId()).isNotNull();
+		assertThat(user.getName()).isEqualTo("name");
+		assertThat(user.getEmail()).isEqualTo("email");
+		assertThat(user.getPassword()).isEqualTo("password");
+		assertThat(user.getLastConnection()).isEqualTo(now);
+		assertThat(user.isStatus()).isTrue();
+	}
 }
