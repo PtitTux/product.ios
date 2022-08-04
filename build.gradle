@@ -14,6 +14,7 @@ sonarqube {
 		property "sonar.projectKey", "PtitTux_product.io"
 		property "sonar.organization", "ptittux"
 		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.projectName", "Product.io server"
 	}
 }
 
