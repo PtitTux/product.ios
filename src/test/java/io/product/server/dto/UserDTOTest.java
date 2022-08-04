@@ -65,7 +65,7 @@ class UserDTOTest
 		dto2.setEmail("test");
 
 		assertThat(dto1.hashCode()).hasSameHashCodeAs(dto2.hashCode());
-		assertThat(dto1.toString()).hasToString(dto2.toString());
+		assertThat(dto1).hasToString(dto2.toString());
 		assertThat(dto1).isEqualTo(dto2);
 	}
 
@@ -84,7 +84,7 @@ class UserDTOTest
 		dto2.setEmail("test");
 
 		assertThat(dto1.hashCode()).isNotEqualTo(dto2.hashCode());
-		assertThat(dto1.toString()).hasToString(dto2.toString());
+		assertThat(dto1.toString()).isNotEqualTo(dto2.toString());
 		assertThat(dto1).isNotEqualTo(dto2);
 	}
 
