@@ -21,7 +21,7 @@ class UserControllerTest
 
 
 	@Test
-	public void testFindAll() {
+	void testFindAll() {
 		ResponseEntity<Object> response = userController.findAll();
 
 		assertThat(response).isNotNull();

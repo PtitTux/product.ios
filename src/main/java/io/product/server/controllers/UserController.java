@@ -26,7 +26,7 @@ public class UserController
 
 	@GetMapping("/")
 	public ResponseEntity<Object> findAll() {
-		List<UserDTO> users =  repository.findAll().stream().map(u -> modelMapper.map(u, UserDTO.class)).collect(Collectors.toList());
+		List<UserDTO> users =  repository.findAll().stream().map(u -> modelMapper.map(u, UserDTO.class)).toList();
 
 		return new APIResponse("Successfully retrieved users")
 		        .setData(users)
