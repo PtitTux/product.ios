@@ -1,0 +1,50 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="datas-01" author="product.io" >
+        <insert tableName="users">
+            <column name="name" value="Administrator" />
+            <column name="email" value="admin@product.io" />
+            <!-- manager -->
+            <column name="password" value="$2a$10$ET5E6i3Q9h189dzHrwE6gODC47lVJY/yrVrJfX8xZVVZiQrER17WS" />
+            <column name="created_at" value="2022-07-25, 12:00:00" />
+        </insert>
+
+        <insert tableName="roles">
+            <column name="name" value="productOwner"/>
+            <column name="label" value="Product Owner"/>
+            <column name="created_at" value="2022-07-25, 12:00:00" />
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="productManager"/>
+            <column name="label" value="Product Manager"/>
+            <column name="created_at" value="2022-07-25, 12:00:00" />
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="developer"/>
+            <column name="label" value="Developer"/>
+            <column name="created_at" value="2022-07-25, 12:00:00" />
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="reporter"/>
+            <column name="label" value="Reporter"/>
+            <column name="created_at" value="2022-07-25, 12:00:00" />
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="viewer"/>
+            <column name="label" value="Viewer"/>
+            <column name="created_at" value="2022-07-25, 12:00:00" />
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="support"/>
+            <column name="label" value="Support"/>
+            <column name="created_at" value="2022-07-25, 12:00:00" />
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="reader"/>
+            <column name="label" value="Reader"/>
+            <column name="created_at" value="2022-07-25, 12:00:00" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

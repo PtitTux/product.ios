@@ -1,0 +1,45 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <property name="uuid_type" value="UUID" dbms="postgresql"/>
+    <property name="uuid_function" value="uuid_generate_v4()" dbms="postgresql"/>
+
+    <changeSet id="schema-02" author="product.io" >
+
+        <createTable tableName="trackers" remarks="Create tracker table">
+            <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" />
+            <column name="updated_at" type="TIMESTAMP" />
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="label" type="VARCHAR(255)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="description" type="VARCHAR(512)" />
+            <column name="color" type="VARCHAR(7)" defaultValue="#607D8B" />
+            <column name="default" type="boolean" defaultValue="false" />
+        </createTable>
+        
+        <createTable tableName="tracker_roles">
+            <column name="tracker_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_tracker" referencedColumnNames="id" referencedTableName="trackers"/>
+            </column>
+            <column name="role_id" type="UUID">
+                <constraints nullable="false"  foreignKeyName="fk_role" referencedColumnNames="id" referencedTableName="roles"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="tracker_notifications">
+            <column name="tracker_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_tracker" referencedColumnNames="id" referencedTableName="trackers"/>
+            </column>
+            <column name="role_id" type="UUID">
+                <constraints nullable="false"  foreignKeyName="fk_role" referencedColumnNames="id" referencedTableName="roles"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

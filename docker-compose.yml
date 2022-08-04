@@ -1,0 +1,29 @@
+version: '3.7'
+networks:
+  product-net:
+    driver: bridge
+services:
+  postgres:
+    image: postgres:bullseye
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: manager
+    volumes:
+      - './dockers/postgres:/var/lib/postgresql/data'
+    ports:
+      - 5432:5432
+    networks:
+      - product-net
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - 2345:80
+    volumes:
+      - './dockers/pgadmin:/var/lib/pgadmin'
+    networks:
+      - product-net

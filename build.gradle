@@ -1,0 +1,48 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.2'
+	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+	id 'java'
+	id "org.sonarqube" version "3.4.0.2513"
+}
+
+group = 'io.product'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "PtitTux_product.io"
+		property "sonar.organization", "ptittux"
+		property "sonar.host.url", "https://sonarcloud.io"
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.liquibase:liquibase-core'
+	implementation 'org.modelmapper:modelmapper:3.1.0'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'com.h2database:h2'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
