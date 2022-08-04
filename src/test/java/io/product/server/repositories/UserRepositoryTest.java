@@ -19,15 +19,19 @@ class UserRepositoryTest
 
 
 	@Test
-	void createUserCheckIdNotNull() {
+	void createUserCheck() {
 		UserEntity user = new UserEntity();
 		user.setName("name");
 		user.setEmail("email");
+		user.setStatus(true);
+		user.setPassword("password");
 
 		user = userRepository.save(user);
 
 		assertThat(user.getId()).isNotNull();
 		assertThat(user.getName()).isEqualTo("name");
 		assertThat(user.getEmail()).isEqualTo("email");
+		assertThat(user.getPassword()).isEqualTo("password");
+		assertThat(user.isStatus()).isTrue();
 	}
 }

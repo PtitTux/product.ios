@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,8 +21,8 @@ public abstract class BaseEntity
 	private UUID id;
 
 	@CreatedDate
-	private Date createdAt;
+	private LocalDateTime createdAt;
 
 	@LastModifiedDate
-	private Date updatedAt;
+	private LocalDateTime updatedAt;
 }
