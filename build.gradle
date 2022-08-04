@@ -2,7 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'java'
-	id "org.sonarqube" version "3.4.0.2513"
+	id 'jacoco'
+	id 'org.sonarqube' version '3.4.0.2513'
 }
 
 group = 'io.product'
@@ -15,6 +16,11 @@ sonarqube {
 		property "sonar.organization", "ptittux"
 		property "sonar.host.url", "https://sonarcloud.io"
 		property "sonar.projectName", "Product.io server"
+	}
+}
+jacocoTestReport {
+	reports {
+		xml.enabled true
 	}
 }
 
