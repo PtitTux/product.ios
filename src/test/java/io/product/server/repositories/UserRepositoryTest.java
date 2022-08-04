@@ -61,19 +61,4 @@ class UserRepositoryTest
 		assertThat(user.getLastConnection()).isEqualTo(now);
 		assertThat(user.isStatus()).isTrue();
 	}
-
-
-	@Test
-	void compareTwoSameUsers() {
-		UserEntity user1 = new UserEntity("email","password","name", now,true);
-		UserEntity user2 = new UserEntity("email","password","name", now,true);
-
-		user1 = userRepository.save(user1);
-		user2 = userRepository.save(user2);
-
-		assertThat(user1.hashCode()).isNotEqualTo(user2.hashCode());
-		assertThat(user1.toString()).isEqualTo(user2.toString());
-		assertThat(user1).isNotEqualTo(user2);
-		assertThat(user1.equals(user2)).isFalse();
-	}
 }
