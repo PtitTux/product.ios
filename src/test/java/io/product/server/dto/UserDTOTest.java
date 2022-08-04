@@ -51,4 +51,76 @@ class UserDTOTest
 		assertThat(violations).size().isEqualTo(1);
 		assertThat(violations.iterator().next().getPropertyPath().toString()).isEqualTo("email");
 	}
+
+	@Test
+	void compareTwoSameUsersDTO() {
+		UUID id = UUID.randomUUID();
+
+		UserDTO dto1 = new UserDTO();
+		dto1.setId(id);
+		dto1.setName("name");
+		dto1.setEmail("test");
+
+		UserDTO dto2 = new UserDTO();
+		dto2.setId(id);
+		dto2.setName("name");
+		dto2.setEmail("test");
+
+		assertThat(dto1.hashCode()).isEqualTo(dto2.hashCode());
+		assertThat(dto1.toString()).isEqualTo(dto2.toString());
+	}
+
+	@Test
+	void compareTwoUsersWithNameDiffDTO() {
+		UUID id = UUID.randomUUID();
+
+		UserDTO dto1 = new UserDTO();
+		dto1.setId(id);
+		dto1.setName("name");
+		dto1.setEmail("test");
+
+		UserDTO dto2 = new UserDTO();
+		dto2.setId(id);
+		dto2.setName("name2");
+		dto2.setEmail("test");
+
+		assertThat(dto1.hashCode()).isNotEqualTo(dto2.hashCode());
+		assertThat(dto1.toString()).isNotEqualTo(dto2.toString());
+	}
+
+	@Test
+	void compareTwoUsersWithEmailDiffDTO() {
+		UUID id = UUID.randomUUID();
+
+		UserDTO dto1 = new UserDTO();
+		dto1.setId(id);
+		dto1.setName("name");
+		dto1.setEmail("test");
+
+		UserDTO dto2 = new UserDTO();
+		dto2.setId(id);
+		dto2.setName("name");
+		dto2.setEmail("test2");
+
+		assertThat(dto1.hashCode()).isNotEqualTo(dto2.hashCode());
+		assertThat(dto1.toString()).isNotEqualTo(dto2.toString());
+	}
+
+	@Test
+	void compareTwoUsersWithIdDiffDTO() {
+		UUID id = UUID.randomUUID();
+
+		UserDTO dto1 = new UserDTO();
+		dto1.setId(id);
+		dto1.setName("name");
+		dto1.setEmail("test");
+
+		UserDTO dto2 = new UserDTO();
+		dto2.setId(UUID.randomUUID());
+		dto2.setName("name");
+		dto2.setEmail("test");
+
+		assertThat(dto1.hashCode()).isNotEqualTo(dto2.hashCode());
+		assertThat(dto1.toString()).isNotEqualTo(dto2.toString());
+	}
 }
