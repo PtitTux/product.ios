@@ -1,9 +1,6 @@
 package io.product.server.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +14,7 @@ import java.time.LocalDateTime;
 @Table(name="users")
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper=true)
 public class UserEntity extends BaseEntity
 {
 	@Column(name = "email", length = 255, nullable = false, unique = true)
