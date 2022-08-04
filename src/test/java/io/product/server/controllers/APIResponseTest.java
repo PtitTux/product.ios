@@ -10,7 +10,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
 
-public class APIResponseTest
+class APIResponseTest
 {
 
 	@Test
@@ -32,13 +32,13 @@ public class APIResponseTest
 		if(response.getBody() instanceof Map)
 		{
 			Map<String, Object> body = (Map<String, Object>) response.getBody();
-			assertThat(body.containsKey("message")).isTrue();
-			assertThat(body.containsKey("status")).isTrue();
-			assertThat(body.containsKey("data")).isFalse();
+			assertThat(body).containsKey("message");
+			assertThat(body).containsKey("status");
+			assertThat(body).doesNotContainKey("data");
 
 			assertThat(body.get("status")).isInstanceOf(Integer.class);
-			assertThat(body.get("status")).isEqualTo(200);
-			assertThat(body.get("message")).isEqualTo("testing message");
+			assertThat(body).containsEntry("status", 200);
+			assertThat(body).containsEntry("message", "testing message");
 		}
 	}
 
@@ -52,14 +52,14 @@ public class APIResponseTest
 		if(response.getBody() instanceof Map)
 		{
 			Map<String, Object> body = (Map<String, Object>) response.getBody();
-			assertThat(body.containsKey("message")).isTrue();
-			assertThat(body.containsKey("status")).isTrue();
-			assertThat(body.containsKey("data")).isTrue();
+			assertThat(body).containsKey("message");
+			assertThat(body).containsKey("status");
+			assertThat(body).containsKey("data");
 
 			assertThat(body.get("status")).isInstanceOf(Integer.class);
-			assertThat(body.get("status")).isEqualTo(200);
-			assertThat(body.get("message")).isEqualTo("testing message");
-			assertThat(body.get("data")).isEqualTo("My Object");
+			assertThat(body).containsEntry("status", 200);
+			assertThat(body).containsEntry("message", "testing message");
+			assertThat(body).containsEntry("data", "My Object");
 		}
 	}
 
@@ -73,15 +73,16 @@ public class APIResponseTest
 		if(response.getBody() instanceof Map)
 		{
 			Map<String, Object> body = (Map<String, Object>) response.getBody();
-			assertThat(body.containsKey("message")).isTrue();
-			assertThat(body.containsKey("status")).isTrue();
-			assertThat(body.containsKey("data")).isTrue();
-			assertThat(body.containsKey("total")).isTrue();
+			assertThat(body).containsKey("message");
+			assertThat(body).containsKey("status");
+			assertThat(body).containsKey("data");
+			assertThat(body).containsKey("total");
+
 
 			assertThat(body.get("status")).isInstanceOf(Integer.class);
-			assertThat(body.get("status")).isEqualTo(200);
-			assertThat(body.get("message")).isEqualTo("testing message");
-			assertThat(body.get("total")).isEqualTo(2);
+			assertThat(body).containsEntry("status", 200);
+			assertThat(body).containsEntry("message", "testing message");
+			assertThat(body).containsEntry("total", 2);
 		}
 	}
 
@@ -95,13 +96,13 @@ public class APIResponseTest
 		if(response.getBody() instanceof Map)
 		{
 			Map<String, Object> body = (Map<String, Object>) response.getBody();
-			assertThat(body.containsKey("message")).isTrue();
-			assertThat(body.containsKey("status")).isTrue();
-			assertThat(body.containsKey("data")).isFalse();
+			assertThat(body).containsKey("message");
+			assertThat(body).containsKey("status");
+			assertThat(body).doesNotContainKey("data");
 
 			assertThat(body.get("status")).isInstanceOf(Integer.class);
-			assertThat(body.get("status")).isEqualTo(400);
-			assertThat(body.get("message")).isEqualTo("error message");
+			assertThat(body).containsEntry("status", 400);
+			assertThat(body).containsEntry("message", "error message");
 		}
 	}
 }
