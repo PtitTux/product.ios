@@ -67,6 +67,7 @@ class UserDTOTest
 
 		assertThat(dto1.hashCode()).isEqualTo(dto2.hashCode());
 		assertThat(dto1.toString()).isEqualTo(dto2.toString());
+		assertThat(dto1).isEqualTo(dto2);
 	}
 
 	@Test
@@ -85,6 +86,7 @@ class UserDTOTest
 
 		assertThat(dto1.hashCode()).isNotEqualTo(dto2.hashCode());
 		assertThat(dto1.toString()).isNotEqualTo(dto2.toString());
+		assertThat(dto1).isNotEqualTo(dto2);
 	}
 
 	@Test
@@ -103,6 +105,7 @@ class UserDTOTest
 
 		assertThat(dto1.hashCode()).isNotEqualTo(dto2.hashCode());
 		assertThat(dto1.toString()).isNotEqualTo(dto2.toString());
+		assertThat(dto1).isNotEqualTo(dto2);
 	}
 
 	@Test
@@ -121,5 +124,6 @@ class UserDTOTest
 
 		assertThat(dto1.hashCode()).isNotEqualTo(dto2.hashCode());
 		assertThat(dto1.toString()).isNotEqualTo(dto2.toString());
+		assertThat(dto1).isNotEqualTo(dto2);
 	}
 }
