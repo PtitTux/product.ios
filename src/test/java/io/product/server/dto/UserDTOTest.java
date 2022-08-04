@@ -47,7 +47,6 @@ class UserDTOTest
 		dto.setEmail("test");
 
 		Set<ConstraintViolation<UserDTO>> violations = validator.validate(dto);
-		assertThat(violations).isNotEmpty();
 		assertThat(violations).size().isEqualTo(1);
 		assertThat(violations.iterator().next().getPropertyPath().toString()).isEqualTo("email");
 	}
