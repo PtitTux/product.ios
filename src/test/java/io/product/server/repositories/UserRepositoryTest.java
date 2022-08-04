@@ -1,5 +1,6 @@
 package io.product.server.repositories;
 
+import io.product.server.dto.UserDTO;
 import io.product.server.entities.UserEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -58,5 +60,19 @@ class UserRepositoryTest
 		assertThat(user.getPassword()).isEqualTo("password");
 		assertThat(user.getLastConnection()).isEqualTo(now);
 		assertThat(user.isStatus()).isTrue();
+	}
+
+
+	@Test
+	void compareTwoSameUsers() {
+		UserEntity user1 = new UserEntity("email","password","name", now,true);
+		UserEntity user2 = new UserEntity("email","password","name", now,true);
+
+		user1 = userRepository.save(user1);
+		user2 = userRepository.save(user2);
+
+		assertThat(user1.hashCode()).isNotEqualTo(user2.hashCode());
+		assertThat(user1.toString()).isEqualTo(user2.toString());
+		assertThat(user1).isNotEqualTo(user2);
 	}
 }
