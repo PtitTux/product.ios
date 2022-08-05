@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 
 @Data
 @Entity
@@ -31,4 +31,11 @@ public class UserEntity extends BaseEntity
 	@Column(name="status",columnDefinition = "boolean default true")
 	private boolean status;
 
+	public UserEntity(UUID id,String name,String email)
+	{
+		this.id=id;
+		this.name=name;
+		this.email=email;
+		this.status=true;
+	}
 }
