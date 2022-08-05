@@ -3,7 +3,6 @@ package io.product.server.services;
 import io.product.server.dto.UserDTO;
 import io.product.server.entities.UserEntity;
 import io.product.server.repositories.UserRepository;
-import org.h2.engine.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
