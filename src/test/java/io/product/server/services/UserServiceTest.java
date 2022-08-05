@@ -1,6 +1,6 @@
 package io.product.server.services;
 
-import io.product.server.dto.UserDTO;
+import io.product.server.dto.User;
 import io.product.server.entities.UserEntity;
 import io.product.server.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class UserServiceTest
 		when(dao.findAll()).thenReturn(List.of(john, alex, steve));
 
 		//test
-		List<UserDTO> usersList = service.findAll();
+		List<User> usersList = service.findAll();
 
 		assertEquals(3, usersList.size());
 		verify(dao, times(1)).findAll();

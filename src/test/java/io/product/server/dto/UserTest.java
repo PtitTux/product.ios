@@ -12,7 +12,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class UserDTOTest
+class UserTest
 {
 	private Validator validator;
 
@@ -26,7 +26,7 @@ class UserDTOTest
 	void buildUserDTO() {
 		UUID id = UUID.randomUUID();
 
-		UserDTO dto = new UserDTO();
+		User dto = new User();
 		dto.setId(id);
 		dto.setName("name");
 		dto.setEmail("test@product.io");
@@ -40,12 +40,12 @@ class UserDTOTest
 	void buildUserDTOWithWrongEmail() {
 		UUID id = UUID.randomUUID();
 
-		UserDTO dto = new UserDTO();
+		User dto = new User();
 		dto.setId(id);
 		dto.setName("name");
 		dto.setEmail("test");
 
-		Set<ConstraintViolation<UserDTO>> violations = validator.validate(dto);
+		Set<ConstraintViolation<User>> violations = validator.validate(dto);
 		assertThat(violations).size().isEqualTo(1);
 		assertThat(violations.iterator().next().getPropertyPath()).hasToString("email");
 	}
