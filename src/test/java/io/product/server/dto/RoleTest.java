@@ -12,7 +12,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RoleDTOTest
+class RoleTest
 {
 	private Validator validator;
 
@@ -26,7 +26,7 @@ class RoleDTOTest
 	void buildRoleDTO() {
 		UUID id = UUID.randomUUID();
 
-		RoleDTO dto = new RoleDTO();
+		Role dto = new Role();
 		dto.setId(id);
 		dto.setName("name");
 
@@ -38,10 +38,10 @@ class RoleDTOTest
 	void buildUserDTOWithWrongName() {
 		UUID id = UUID.randomUUID();
 
-		RoleDTO dto = new RoleDTO();
+		Role dto = new Role();
 		dto.setId(id);
 
-		Set<ConstraintViolation<RoleDTO>> violations = validator.validate(dto);
+		Set<ConstraintViolation<Role>> violations = validator.validate(dto);
 		assertThat(violations).size().isEqualTo(1);
 		assertThat(violations.iterator().next().getPropertyPath()).hasToString("name");
 	}
