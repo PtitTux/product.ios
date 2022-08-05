@@ -26,5 +26,6 @@ class UserControllerTest
 
 		assertThat(response).isNotNull();
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThat(response.hasBody()).isTrue();
 	}
 }
