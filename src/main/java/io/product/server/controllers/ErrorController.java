@@ -1,5 +1,6 @@
 package io.product.server.controllers;
 
+import io.product.server.exceptions.UserExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,5 +14,17 @@ public class ErrorController
 	public ResponseEntity<Object> exception(MethodArgumentNotValidException exception)
 	{
 		return new APIResponse<>("Invalid parameter").setStatus(HttpStatus.BAD_REQUEST).build();
+	}
+
+	@ExceptionHandler(value = UserExistException.class)
+	public ResponseEntity<Object> exception(UserExistException exception)
+	{
+		return new APIResponse<>("User already exist with this email").setStatus(HttpStatus.BAD_REQUEST).build();
+	}
+
+	@ExceptionHandler(value = Exception.class)
+	public ResponseEntity<Object> exception(Exception exception)
+	{
+		return new APIResponse<>("general error").setStatus(HttpStatus.BAD_REQUEST).build();
 	}
 }
