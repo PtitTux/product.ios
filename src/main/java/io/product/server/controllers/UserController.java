@@ -2,6 +2,7 @@ package io.product.server.controllers;
 
 import io.product.server.controllers.resources.UserListResource;
 import io.product.server.services.UserService;
+import io.product.server.services.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +23,15 @@ public class UserController
 	public UserController(UserService service, ModelMapper modelMapper)
 	{
 		this.service = service;
-		this.modelMapper=modelMapper;
+		this.modelMapper = modelMapper;
 	}
 
 	@GetMapping("")
 	public ResponseEntity<List<UserListResource>> findAll()
 	{
-		return new APIResponse("Successfully retrieved users").setData(service.findAll().stream().map(u -> this.modelMapper.map(u, UserListResource.class)).toList()).build();
+		return new APIResponse("Successfully retrieved users").setData(service.findAll()
+		                                                                      .stream()
+		                                                                      .map(u -> this.modelMapper.map(u, UserListResource.class))
+		                                                                      .toList()).build();
 	}
 }
