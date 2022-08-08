@@ -2,10 +2,12 @@ package io.product.server.services.impl;
 
 import io.product.server.dto.User;
 import io.product.server.entities.UserEntity;
+import io.product.server.exceptions.UserExistException;
 import io.product.server.repositories.UserRepository;
 import io.product.server.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,10 +21,13 @@ public class UserServiceImpl implements UserService
 
 	private final ModelMapper modelMapper;
 
-	public UserServiceImpl(UserRepository repository, ModelMapper modelMapper)
+	private final PasswordEncoder passwordEncoder;
+
+	public UserServiceImpl(UserRepository repository, ModelMapper modelMapper, PasswordEncoder passwordEncoder)
 	{
 		this.repository = repository;
 		this.modelMapper = modelMapper;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -32,14 +37,23 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public User createUser(String email, String password, String name) {
+	public User createUser(String email, String password, String name) throws UserExistException
+	{
 
 		Optional<UserEntity> userExist = repository.findByEmail(email);
 
 		if(userExist.isPresent()) {
-
+			throw new UserExistException();
 		}
 
-		return null;
+		UserEntity createdUser = new UserEntity();
+		createdUser.setStatus(true);
+		createdUser.setName(name);
+		createdUser.setEmail(email);
+		createdUser.setPassword(this.passwordEncoder.encode(password));
+
+		createdUser = this.repository.save(createdUser);
+
+		return this.modelMapper.map(createdUser, User.class);
 	}
 }
