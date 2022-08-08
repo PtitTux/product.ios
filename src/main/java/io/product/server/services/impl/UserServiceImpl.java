@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public List<User> findAll() {
+	public List<User> findAll()
+	{
 		log.debug("Find All users");
 		return repository.findAll().stream().map(u -> modelMapper.map(u, User.class)).toList();
 	}
@@ -42,15 +43,17 @@ public class UserServiceImpl implements UserService
 
 		Optional<UserEntity> userExist = repository.findByEmail(email);
 
-		if(userExist.isPresent()) {
+		if (userExist.isPresent())
+		{
 			throw new UserExistException();
 		}
 
-		UserEntity createdUser = new UserEntity();
-		createdUser.setStatus(true);
-		createdUser.setName(name);
-		createdUser.setEmail(email);
-		createdUser.setPassword(this.passwordEncoder.encode(password));
+		UserEntity createdUser = UserEntity.builder()
+		                                   .name(name)
+		                                   .email(email)
+		                                   .password(this.passwordEncoder.encode(password))
+		                                   .status(true)
+		                                   .build();
 
 		createdUser = this.repository.save(createdUser);
 
