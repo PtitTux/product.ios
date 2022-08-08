@@ -3,6 +3,7 @@ package io.product.server.services;
 import io.product.server.dto.User;
 import io.product.server.entities.UserEntity;
 import io.product.server.repositories.UserRepository;
+import io.product.server.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.*;
 class UserServiceTest
 {
 	@InjectMocks
-	UserService service;
+	UserServiceImpl service;
 
 	@Mock
 	UserRepository dao;
