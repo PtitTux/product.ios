@@ -7,12 +7,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class APIResponse
+public class APIResponse<T>
 {
 
 	private String message;
 	private HttpStatus status = HttpStatus.OK;
-	private Object data = null;
+	private T data = null;
 
 	public APIResponse(String message) {
 		this.message = message;
@@ -24,7 +24,7 @@ public class APIResponse
 		return this;
 	}
 
-	public APIResponse setData(Object data)
+	public APIResponse setData(T data)
 	{
 		this.data = data;
 		return this;
@@ -40,7 +40,7 @@ public class APIResponse
 		return status.value();
 	}
 
-	public Object getData()
+	public T getData()
 	{
 		return data;
 	}

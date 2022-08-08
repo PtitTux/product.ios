@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 @Slf4j
@@ -24,7 +26,7 @@ public class UserController
 	}
 
 	@GetMapping("")
-	public ResponseEntity<Object> findAll()
+	public ResponseEntity<List<UserListResource>> findAll()
 	{
 		return new APIResponse("Successfully retrieved users").setData(service.findAll().stream().map(u -> this.modelMapper.map(u, UserListResource.class)).toList()).build();
 	}
