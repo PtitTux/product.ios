@@ -34,7 +34,7 @@ public class AuthController
 	{
 		User user = this.service.createUser(signup.getEmail(), signup.getPassword(), signup.getName());
 
-		return new APIResponse<UserResource>("user created with success").setStatus(HttpStatus.CREATED)
+		return new APIResponse<UserResource>("user signup with success").setStatus(HttpStatus.CREATED)
 		                                                                 .setData(this.modelMapper.map(user, UserResource.class))
 		                                                                 .build();
 	}
