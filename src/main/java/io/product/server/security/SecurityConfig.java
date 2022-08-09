@@ -22,7 +22,7 @@ public class SecurityConfig
 
 		return http
 		        .cors().and()
-		        .csrf().disable()
+						.csrf().ignoringAntMatchers("/auth/**").and()
 		        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 		        .authorizeRequests().antMatchers("/auth/**").permitAll()
 		        .anyRequest().permitAll().and()
