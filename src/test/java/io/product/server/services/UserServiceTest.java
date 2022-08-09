@@ -57,7 +57,7 @@ class UserServiceTest
 		//test
 		List<User> usersList = service.findAll();
 
-		assertThat(usersList.size()).isEqualTo(3);
+		assertThat(usersList).hasSize(3);
 		verify(dao, times(1)).findAll();
 	}
 
