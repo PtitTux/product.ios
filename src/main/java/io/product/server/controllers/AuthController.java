@@ -30,11 +30,11 @@ public class AuthController
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<UserResource> signup(@Valid @RequestBody SignupResource signup) throws UserExistException
+	public ResponseEntity<Object> signup(@Valid @RequestBody SignupResource signup) throws UserExistException
 	{
 		User user = this.service.createUser(signup.getEmail(), signup.getPassword(), signup.getName());
 
-		return new APIResponse<UserResource>("user signup with success").setStatus(HttpStatus.CREATED)
+		return new APIResponse<>("user signup with success").setStatus(HttpStatus.CREATED)
 		                                                                 .setData(this.modelMapper.map(user, UserResource.class))
 		                                                                 .build();
 	}
