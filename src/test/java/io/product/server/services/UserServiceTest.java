@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -40,16 +41,17 @@ class UserServiceTest
 	PasswordEncoder passwordEncoder;
 
 	@BeforeEach
-	void setUp() {
+	void setUp()
+	{
 		service = new UserServiceImpl(dao, new ModelMapper(), new BCryptPasswordEncoder(10));
 	}
 
 	@Test
 	void findAll()
 	{
-		UserEntity john = new UserEntity(UUID.randomUUID(),"John", "john@product.io");
-		UserEntity alex = new UserEntity(UUID.randomUUID(),"Alex", "alex@product.io");
-		UserEntity steve = new UserEntity(UUID.randomUUID(),"Steve", "steve@product.io");
+		UserEntity john = new UserEntity(UUID.randomUUID(), "John", "john@product.io");
+		UserEntity alex = new UserEntity(UUID.randomUUID(), "Alex", "alex@product.io");
+		UserEntity steve = new UserEntity(UUID.randomUUID(), "Steve", "steve@product.io");
 
 
 		when(dao.findAll()).thenReturn(List.of(john, alex, steve));
@@ -62,7 +64,8 @@ class UserServiceTest
 	}
 
 	@Test
-	void createUser() {
+	void createUser()
+	{
 		try
 		{
 			UserEntity john = UserEntity.builder()
@@ -85,5 +88,21 @@ class UserServiceTest
 		{
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Test
+	void createUserPresent()
+	{
+		UserEntity john = UserEntity.builder()
+		                            .name("John")
+		                            .email("john@product.io")
+		                            .password(new BCryptPasswordEncoder(10).encode("password"))
+		                            .status(true)
+		                            .build();
+
+		when(dao.findByEmail("john@product.io")).thenReturn(Optional.of(john));
+
+		assertThatThrownBy(() -> service.createUser("john@product.io", "password", "John")).isInstanceOf(UserExistException.class);
+
 	}
 }
