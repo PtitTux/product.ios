@@ -25,7 +25,7 @@ class UserControllerTest
 
 	@Test
 	void testFindAll() {
-		ResponseEntity<List<UserListResource>> response = userController.findAll();
+		ResponseEntity<Object> response = userController.findAll();
 
 		assertThat(response).isNotNull();
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);

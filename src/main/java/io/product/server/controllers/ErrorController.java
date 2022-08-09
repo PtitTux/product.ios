@@ -1,7 +1,6 @@
 package io.product.server.controllers;
 
 import io.product.server.exceptions.AppException;
-import io.product.server.exceptions.UserExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

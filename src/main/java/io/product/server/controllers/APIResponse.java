@@ -22,13 +22,13 @@ public class APIResponse<T>
 		this.time = LocalDateTime.now();
 	}
 
-	public APIResponse setStatus(HttpStatus status)
+	public APIResponse<T> setStatus(HttpStatus status)
 	{
 		this.status = status;
 		return this;
 	}
 
-	public APIResponse setData(T data)
+	public APIResponse<T> setData(T data)
 	{
 		this.data = data;
 		return this;
