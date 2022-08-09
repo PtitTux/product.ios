@@ -3,28 +3,32 @@ package io.product.server.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class APIResponse
+public class APIResponse<T>
 {
+
+	private LocalDateTime time;
 
 	private String message;
 	private HttpStatus status = HttpStatus.OK;
-	private Object data = null;
+	private T data = null;
 
 	public APIResponse(String message) {
 		this.message = message;
+		this.time = LocalDateTime.now();
 	}
 
-	public APIResponse setStatus(HttpStatus status)
+	public APIResponse<T> setStatus(HttpStatus status)
 	{
 		this.status = status;
 		return this;
 	}
 
-	public APIResponse setData(Object data)
+	public APIResponse<T> setData(T data)
 	{
 		this.data = data;
 		return this;
@@ -40,7 +44,7 @@ public class APIResponse
 		return status.value();
 	}
 
-	public Object getData()
+	public T getData()
 	{
 		return data;
 	}
@@ -55,6 +59,7 @@ public class APIResponse
 		}
 		map.put("status", status.value());
 		map.put("message", message);
+		map.put("timestamp",this.time);
 
 		if (this.data instanceof Collection)
 		{

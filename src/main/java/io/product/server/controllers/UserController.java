@@ -20,12 +20,15 @@ public class UserController
 	public UserController(UserService service, ModelMapper modelMapper)
 	{
 		this.service = service;
-		this.modelMapper=modelMapper;
+		this.modelMapper = modelMapper;
 	}
 
 	@GetMapping("")
 	public ResponseEntity<Object> findAll()
 	{
-		return new APIResponse("Successfully retrieved users").setData(service.findAll().stream().map(u -> this.modelMapper.map(u, UserListResource.class)).toList()).build();
+		return new APIResponse<>("Successfully retrieved users").setData(service.findAll()
+		                                                                                              .stream()
+		                                                                                              .map(u -> this.modelMapper.map(u, UserListResource.class))
+		                                                                                              .toList()).build();
 	}
 }
