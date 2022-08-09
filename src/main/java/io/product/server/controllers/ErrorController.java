@@ -1,5 +1,6 @@
 package io.product.server.controllers;
 
+import io.product.server.exceptions.AppException;
 import io.product.server.exceptions.UserExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,10 @@ public class ErrorController
 		return new APIResponse<>("Invalid parameter").setStatus(HttpStatus.BAD_REQUEST).build();
 	}
 
-	@ExceptionHandler(value = UserExistException.class)
-	public ResponseEntity<Object> exception(UserExistException exception)
+	@ExceptionHandler(value = AppException.class)
+	public ResponseEntity<Object> exception(AppException exception)
 	{
-		return new APIResponse<>("User already exist with this email").setStatus(HttpStatus.BAD_REQUEST).build();
+		return new APIResponse<>(exception.getMessage()).setStatus(HttpStatus.BAD_REQUEST).build();
 	}
 
 	@ExceptionHandler(value = Exception.class)
