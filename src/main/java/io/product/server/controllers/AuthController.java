@@ -1,9 +1,12 @@
 package io.product.server.controllers;
 
+import io.product.server.controllers.resources.SigninResource;
 import io.product.server.controllers.resources.SignupResource;
 import io.product.server.controllers.resources.UserResource;
 import io.product.server.dto.User;
 import io.product.server.exceptions.UserExistException;
+import io.product.server.exceptions.UserNotExistException;
+import io.product.server.exceptions.UserPasswordNotMatchException;
 import io.product.server.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -37,5 +40,15 @@ public class AuthController
 		return new APIResponse<>("user signup with success").setStatus(HttpStatus.CREATED)
 		                                                                 .setData(this.modelMapper.map(user, UserResource.class))
 		                                                                 .build();
+	}
+
+	@PostMapping("/signin")
+	public ResponseEntity<Object> signin(@Valid @RequestBody SigninResource signin) throws UserPasswordNotMatchException, UserNotExistException
+	{
+		User user = this.service.loginUser(signin.getEmail(), signin.getPassword());
+
+		return new APIResponse<>("user signin with success").setStatus(HttpStatus.OK)
+		                                                    .setData(this.modelMapper.map(user, UserResource.class))
+		                                                    .build();
 	}
 }

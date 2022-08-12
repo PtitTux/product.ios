@@ -1,5 +1,6 @@
 package io.product.server.controllers;
 
+import io.product.server.controllers.resources.SigninResource;
 import io.product.server.controllers.resources.SignupResource;
 import io.product.server.exceptions.UserExistException;
 import org.junit.jupiter.api.Test;
@@ -62,5 +63,27 @@ class AuthControllerTest
 		SignupResource signup = SignupResource.builder().name("Test").email("test@product.io").build();
 
 		assertThatThrownBy(() -> authController.signup(signup)).isInstanceOf(Exception.class);
+	}
+
+	@Test
+	void testSigninValid()
+	{
+		SignupResource signup = SignupResource.builder().email("test2@product.io").name("Test").password("Password").build();
+		SigninResource signin = SigninResource.builder().email("test2@product.io").password("Password").build();
+
+		try
+		{
+			authController.signup(signup);
+
+			ResponseEntity<Object> response = authController.signin(signin);
+
+			assertThat(response).isNotNull();
+			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+			assertThat(response.hasBody()).isTrue();
+		}
+		catch (Exception e)
+		{
+			assertThat(e).doesNotThrowAnyException();
+		}
 	}
 }

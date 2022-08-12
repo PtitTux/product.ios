@@ -80,10 +80,10 @@ public class UserServiceImpl implements UserService
 
 		// Update lastConnection date
 		userExist.setLastConnection(LocalDateTime.now());
-		userExist = this.repository.save(userExist);
+		userExist = repository.save(userExist);
 
-		User user = this.modelMapper.map(userExist, User.class);
-		user.setAccessToken(this.jwt.generateToken(userExist));
+		User user = modelMapper.map(userExist, User.class);
+		user.setAccessToken(jwt.generateToken(userExist));
 
 		return user;
 	}
