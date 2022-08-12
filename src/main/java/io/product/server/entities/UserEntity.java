@@ -17,7 +17,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper=true)
 public class UserEntity extends BaseEntity
 {
-	@Column(name = "email", length = 255, nullable = false, unique = true)
+	@Column(name = "email", length = 255, nullable = false)
 	private String email;
 
 	@Column(name = "password", length = 255, nullable = false)

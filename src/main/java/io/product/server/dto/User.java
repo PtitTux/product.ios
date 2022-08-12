@@ -22,4 +22,6 @@ public class User
 	private boolean status;
 
 	private LocalDateTime lastConnection;
+
+	private String accessToken;
 }
