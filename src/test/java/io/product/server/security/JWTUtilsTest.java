@@ -44,4 +44,10 @@ class JWTUtilsTest
 		Optional<String> body = utils.validateToken(token);
 		assertThat(body).contains("email");
 	}
+
+	@Test
+	void unValidateToken() {
+		Optional<String> claims = utils.validateToken("test");
+		assertThat(claims).isEmpty();
+	}
 }
