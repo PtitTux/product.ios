@@ -3,6 +3,8 @@ package io.product.server.services.impl;
 import io.product.server.dto.User;
 import io.product.server.entities.UserEntity;
 import io.product.server.exceptions.UserExistException;
+import io.product.server.exceptions.UserNotExistException;
+import io.product.server.exceptions.UserPasswordNotMatchException;
 import io.product.server.repositories.UserRepository;
 import io.product.server.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,15 +51,34 @@ public class UserServiceImpl implements UserService
 			throw new UserExistException();
 		}
 
-		UserEntity createdUser = UserEntity.builder()
-		                                   .name(name)
-		                                   .email(email)
-		                                   .password(this.passwordEncoder.encode(password))
-		                                   .status(true)
-		                                   .build();
+		UserEntity createdUser = UserEntity.builder().name(name).email(email).password(this.passwordEncoder.encode(password)).status(true).build();
 
 		createdUser = this.repository.save(createdUser);
 
 		return this.modelMapper.map(createdUser, User.class);
+	}
+
+	@Override
+	public User loginUser(String email, String password) throws UserNotExistException, UserPasswordNotMatchException
+	{
+		Optional<UserEntity> userExistOpt = repository.findByEmail(email);
+
+		if (userExistOpt.isEmpty())
+		{
+			throw new UserNotExistException();
+		}
+
+		UserEntity userExist = userExistOpt.get();
+
+		if (!passwordEncoder.matches(password, userExist.getPassword()))
+		{
+			throw new UserPasswordNotMatchException();
+		}
+
+		// Update lastConnection date
+		userExist.setLastConnection(LocalDateTime.now());
+		userExist = this.repository.save(userExist);
+
+		return this.modelMapper.map(userExist, User.class);
 	}
 }
