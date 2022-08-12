@@ -32,9 +32,8 @@ public class JWTUtils
 	{
 		try
 		{
-			Jwt jwt = Jwts.parser().setSigningKey(jwtSecret).parse(token);
-			Claims claims = (Claims) jwt.getBody();
-			return Optional.of(claims.getSubject());
+			Claims jwt = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+			return Optional.of(jwt.getSubject());
 		}
 		catch (ExpiredJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e)
 		{

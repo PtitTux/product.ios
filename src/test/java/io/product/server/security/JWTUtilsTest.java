@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +42,6 @@ class JWTUtilsTest
 		String token = utils.generateToken(userTest);
 
 		Optional<String> body = utils.validateToken(token);
-		assertThat(body).isPresent();
 		assertThat(body).contains("email");
 	}
 }
