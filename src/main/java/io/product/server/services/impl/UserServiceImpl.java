@@ -6,6 +6,7 @@ import io.product.server.exceptions.UserExistException;
 import io.product.server.exceptions.UserNotExistException;
 import io.product.server.exceptions.UserPasswordNotMatchException;
 import io.product.server.repositories.UserRepository;
+import io.product.server.security.JWTUtils;
 import io.product.server.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -26,11 +27,13 @@ public class UserServiceImpl implements UserService
 
 	private final PasswordEncoder passwordEncoder;
 
-	public UserServiceImpl(UserRepository repository, ModelMapper modelMapper, PasswordEncoder passwordEncoder)
+	private final JWTUtils jwt;
+	public UserServiceImpl(UserRepository repository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, JWTUtils jwt)
 	{
 		this.repository = repository;
 		this.modelMapper = modelMapper;
 		this.passwordEncoder = passwordEncoder;
+		this.jwt = jwt;
 	}
 
 	@Override
@@ -79,6 +82,9 @@ public class UserServiceImpl implements UserService
 		userExist.setLastConnection(LocalDateTime.now());
 		userExist = this.repository.save(userExist);
 
-		return this.modelMapper.map(userExist, User.class);
+		User user = this.modelMapper.map(userExist, User.class);
+		user.setAccessToken(this.jwt.generateToken(userExist));
+
+		return user;
 	}
 }

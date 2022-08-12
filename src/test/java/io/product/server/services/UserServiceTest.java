@@ -6,6 +6,7 @@ import io.product.server.exceptions.UserExistException;
 import io.product.server.exceptions.UserNotExistException;
 import io.product.server.exceptions.UserPasswordNotMatchException;
 import io.product.server.repositories.UserRepository;
+import io.product.server.security.JWTUtils;
 import io.product.server.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +49,11 @@ class UserServiceTest
 	@BeforeEach
 	void setUp()
 	{
-		service = new UserServiceImpl(dao, new ModelMapper(), new BCryptPasswordEncoder(10));
+		JWTUtils jwtUtils = new JWTUtils();
+		ReflectionTestUtils.setField(jwtUtils, "jwtSecret", "MyJwTSecret2022");
+		ReflectionTestUtils.setField(jwtUtils, "jwtExpirationMs", 86400000);
+
+		service = new UserServiceImpl(dao, new ModelMapper(), new BCryptPasswordEncoder(10), jwtUtils);
 
 		john = UserEntity.builder().name("John").email("john@product.io").password(new BCryptPasswordEncoder(10).encode("password")).status(true).build();
 	}
@@ -109,6 +115,7 @@ class UserServiceTest
 			User existUser = service.loginUser("john@product.io", "password");
 
 			assertThat(existUser.getEmail()).isEqualTo("john@product.io");
+			assertThat(existUser.getAccessToken()).isNotNull();
 		}
 		catch (UserNotExistException | UserPasswordNotMatchException e)
 		{
