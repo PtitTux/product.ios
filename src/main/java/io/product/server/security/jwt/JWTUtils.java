@@ -1,4 +1,4 @@
-package io.product.server.security;
+package io.product.server.security.jwt;
 
 import io.jsonwebtoken.*;
 import io.product.server.entities.UserEntity;

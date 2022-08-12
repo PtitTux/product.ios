@@ -1,6 +1,7 @@
 package io.product.server.security;
 
 import io.product.server.entities.UserEntity;
+import io.product.server.security.jwt.JWTUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

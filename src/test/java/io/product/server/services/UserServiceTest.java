@@ -6,7 +6,7 @@ import io.product.server.exceptions.UserExistException;
 import io.product.server.exceptions.UserNotExistException;
 import io.product.server.exceptions.UserPasswordNotMatchException;
 import io.product.server.repositories.UserRepository;
-import io.product.server.security.JWTUtils;
+import io.product.server.security.jwt.JWTUtils;
 import io.product.server.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,6 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
