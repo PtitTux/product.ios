@@ -30,22 +30,9 @@ public class UserController
 	@GetMapping("")
 	public ResponseEntity<Object> findAll(Authentication authentication)
 	{
-		// For testing
-		log.debug(getLabel(authentication));
-
 		return new APIResponse<>("Successfully retrieved users").setData(service.findAll()
 		                                                                        .stream()
 		                                                                        .map(u -> this.modelMapper.map(u, UserListResource.class))
 		                                                                        .toList()).build();
-	}
-
-	private String getLabel(Authentication auth)
-	{
-		return Optional.of(auth)
-		               .map(Authentication::getPrincipal)
-		               .filter(JWTUserDetailsImpl.class::isInstance)
-		               .map(JWTUserDetailsImpl.class::cast)
-		               .map(JWTUserDetailsImpl::getLabel)
-		               .orElseGet(auth::getName);
 	}
 }
