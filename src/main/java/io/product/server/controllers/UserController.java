@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -31,6 +30,9 @@ public class UserController
 	@GetMapping("")
 	public ResponseEntity<Object> findAll(Authentication authentication)
 	{
+		// For testing
+		log.debug(getLabel(authentication));
+
 		return new APIResponse<>("Successfully retrieved users").setData(service.findAll()
 		                                                                        .stream()
 		                                                                        .map(u -> this.modelMapper.map(u, UserListResource.class))
