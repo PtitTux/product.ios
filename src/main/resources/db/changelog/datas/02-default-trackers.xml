@@ -7,13 +7,12 @@
         <!-- BUG -->
         <insert tableName="trackers">
             <column name="name" value="bug" />
-            <column name="label" value="BUG" />
             <column name="color" value="#C62828" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for bug</comment>
-            INSERT INTO tracker_roles  (tracker_id, role_id)
+            INSERT INTO tracker_creators  (tracker_id, role_id)
             SELECT t.id, r.id
             FROM  (SELECT id FROM trackers WHERE name='bug') t
             , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter')) r
@@ -29,13 +28,12 @@
         <!-- ENHANCEMENT -->
         <insert tableName="trackers">
             <column name="name" value="enhancement" />
-            <column name="label" value="ENHANCEMENT" />
             <column name="color" value="#558B2F" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for enhancement</comment>
-            INSERT INTO tracker_roles  (tracker_id, role_id)
+            INSERT INTO tracker_creators  (tracker_id, role_id)
             SELECT t.id, r.id
             FROM  (SELECT id FROM trackers WHERE name='enhancement') t
             , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter')) r
@@ -51,13 +49,12 @@
         <!-- EVOLUTION -->
         <insert tableName="trackers">
             <column name="name" value="evolution" />
-            <column name="label" value="EVOLUTION" />
             <column name="color" value="#00838F" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for evolution</comment>
-            INSERT INTO tracker_roles  (tracker_id, role_id)
+            INSERT INTO tracker_creators  (tracker_id, role_id)
             SELECT t.id, r.id
             FROM  (SELECT id FROM trackers WHERE name='evolution') t
             , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter')) r
@@ -73,13 +70,12 @@
         <!-- DOCUMENTATION -->
         <insert tableName="trackers">
             <column name="name" value="documentation" />
-            <column name="label" value="DOCUMENTATION" />
             <column name="color" value="#4527A0" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for documentation</comment>
-            INSERT INTO tracker_roles  (tracker_id, role_id)
+            INSERT INTO tracker_creators  (tracker_id, role_id)
             SELECT t.id, r.id
             FROM  (SELECT id FROM trackers WHERE name='documentation') t
             , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter')) r
@@ -95,13 +91,12 @@
         <!-- SECURITY -->
         <insert tableName="trackers">
             <column name="name" value="security" />
-            <column name="label" value="SECURITY" />
             <column name="color" value="#E91E63" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for security</comment>
-            INSERT INTO tracker_roles  (tracker_id, role_id)
+            INSERT INTO tracker_creators  (tracker_id, role_id)
             SELECT t.id, r.id
             FROM  (SELECT id FROM trackers WHERE name='security') t
             , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter')) r
@@ -117,13 +112,12 @@
         <!-- TEST -->
         <insert tableName="trackers">
             <column name="name" value="test" />
-            <column name="label" value="TEST" />
             <column name="color" value="#283593" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for test</comment>
-            INSERT INTO tracker_roles  (tracker_id, role_id)
+            INSERT INTO tracker_creators  (tracker_id, role_id)
             SELECT t.id, r.id
             FROM  (SELECT id FROM trackers WHERE name='test') t
             , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter')) r
@@ -139,13 +133,12 @@
         <!-- PERFORMANCE -->
         <insert tableName="trackers">
             <column name="name" value="performance" />
-            <column name="label" value="PERFORMANCE" />
             <column name="color" value="#4E342E" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for performance</comment>
-            INSERT INTO tracker_roles  (tracker_id, role_id)
+            INSERT INTO tracker_creators  (tracker_id, role_id)
             SELECT t.id, r.id
             FROM  (SELECT id FROM trackers WHERE name='performance') t
             , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter')) r
@@ -161,13 +154,12 @@
         <!-- SUPPORT -->
         <insert tableName="trackers">
             <column name="name" value="support" />
-            <column name="label" value="SUPPORT" />
             <column name="color" value="#F9A825" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for support</comment>
-            INSERT INTO tracker_roles  (tracker_id, role_id)
+            INSERT INTO tracker_creators  (tracker_id, role_id)
             SELECT t.id, r.id
             FROM  (SELECT id FROM trackers WHERE name='support') t
             , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter','support')) r
@@ -183,13 +175,12 @@
         <!-- IDEA -->
         <insert tableName="trackers">
             <column name="name" value="idea" />
-            <column name="label" value="IDEA" />
             <column name="color" value="#6A1B9A" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for idea</comment>
-            INSERT INTO tracker_roles  (tracker_id, role_id)
+            INSERT INTO tracker_creators  (tracker_id, role_id)
             SELECT t.id, r.id
             FROM  (SELECT id FROM trackers WHERE name='idea') t
             , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter','support')) r

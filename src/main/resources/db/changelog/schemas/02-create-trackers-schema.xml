@@ -16,15 +16,12 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="label" type="VARCHAR(255)">
-                <constraints nullable="false" unique="false"/>
-            </column>
             <column name="description" type="VARCHAR(512)" />
             <column name="color" type="VARCHAR(7)" defaultValue="#607D8B" />
             <column name="default" type="boolean" defaultValue="false" />
         </createTable>
         
-        <createTable tableName="tracker_roles">
+        <createTable tableName="tracker_creators">
             <column name="tracker_id" type="UUID">
                 <constraints nullable="false" foreignKeyName="fk_tracker" referencedColumnNames="id" referencedTableName="trackers"/>
             </column>
