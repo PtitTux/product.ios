@@ -1,6 +1,6 @@
 package io.product.server.entities;
 
-import lombok.Getter;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
+@Data
 @MappedSuperclass
 public abstract class BaseEntity
 {

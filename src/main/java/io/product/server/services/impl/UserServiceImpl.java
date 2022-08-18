@@ -6,7 +6,7 @@ import io.product.server.exceptions.UserExistException;
 import io.product.server.exceptions.UserNotExistException;
 import io.product.server.exceptions.UserPasswordNotMatchException;
 import io.product.server.repositories.UserRepository;
-import io.product.server.security.JWTUtils;
+import io.product.server.security.jwt.JWTUtils;
 import io.product.server.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
