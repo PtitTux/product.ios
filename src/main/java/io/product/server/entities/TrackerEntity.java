@@ -21,7 +21,7 @@ public class TrackerEntity extends BaseEntity
 	@Column(name = "description", length = 512, nullable = false)
 	private String description;
 
-	@Column(name="default",columnDefinition = "boolean default true")
+	@Column(name="default_tracker",columnDefinition = "boolean default true")
 	private boolean defaultTracker;
 
 

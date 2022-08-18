@@ -156,6 +156,7 @@
             <column name="name" value="support" />
             <column name="color" value="#F9A825" />
             <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="default_tracker" value="true" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for support</comment>
