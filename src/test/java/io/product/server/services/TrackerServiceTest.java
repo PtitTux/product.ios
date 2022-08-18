@@ -4,6 +4,7 @@ import io.product.server.dto.Tracker;
 import io.product.server.dto.User;
 import io.product.server.entities.TrackerEntity;
 import io.product.server.entities.UserEntity;
+import io.product.server.exceptions.TrackerExistException;
 import io.product.server.exceptions.UserExistException;
 import io.product.server.exceptions.UserNotExistException;
 import io.product.server.exceptions.UserPasswordNotMatchException;
@@ -51,8 +52,9 @@ class TrackerServiceTest
 	{
 		service = new TrackerServiceImpl(dao, new ModelMapper());
 
-		defaultTracker = TrackerEntity.builder().name("John").description("description").defaultTracker(true).build();
-		anothertracker = TrackerEntity.builder().name("John").description("description").defaultTracker(false).build();
+		defaultTracker = TrackerEntity.builder().name("defaultTracker").description("description").defaultTracker(true).build();
+		anothertracker = TrackerEntity.builder().name("anotherTracker").description("description").defaultTracker(false).build();
+		anothertracker.setId(UUID.randomUUID());
 	}
 
 	@Test
@@ -65,5 +67,50 @@ class TrackerServiceTest
 
 		assertThat(list).hasSize(2);
 		verify(dao, times(1)).findAll();
+	}
+
+	@Test
+	void createTrackerWithoutDefault() {
+		when(dao.findByName(any())).thenReturn(Optional.empty());
+		when(dao.save(any())).thenReturn(anothertracker);
+
+		try
+		{
+			Tracker t = service.createTracker("anotherTracker", null, false);
+
+			assertThat(t.getName()).isEqualTo("anotherTracker");
+			assertThat(t.isDefaultTracker()).isFalse();
+		}
+		catch (TrackerExistException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	@Test
+	void createTrackerWithDefault() {
+		when(dao.findByName(any())).thenReturn(Optional.empty());
+		when(dao.save(any())).thenReturn(defaultTracker);
+
+		try
+		{
+			Tracker t = service.createTracker("defaultTracker", null, true);
+
+			assertThat(t.getName()).isEqualTo("defaultTracker");
+			assertThat(t.isDefaultTracker()).isTrue();
+		}
+		catch (TrackerExistException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	@Test
+	void createTrackerWithNameExist() {
+		when(dao.findByName(any())).thenReturn(Optional.of(anothertracker));
+
+		assertThatThrownBy(() -> service.createTracker("testing", null, false)).isInstanceOf(TrackerExistException.class);
 	}
 }
