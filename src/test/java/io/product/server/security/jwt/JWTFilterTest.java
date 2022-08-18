@@ -92,4 +92,46 @@ class JWTFilterTest
 		ResponseEntity<String> response = testClient.exchange(requestEntity, String.class);
 		assertThat(response.getStatusCode().value()).isEqualTo(200);
 	}
+
+	@Test
+	void testPrivateAPIWithAuthBearerLowercase() {
+		Map<String,String> signup=new HashMap<>();
+		signup.put("email","john2@product.io");
+		signup.put("name","John");
+		signup.put("password","P@ssw@rd");
+
+		testClient.postForEntity("/auth/signup",signup, String.class);
+
+		UserEntity john = UserEntity.builder().name("John").email("john2@product.io").password("P@ssw@rd").build();
+		String token = jwtUtils.generateToken(john);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "bearer "+token);
+
+		RequestEntity requestEntity = new RequestEntity(headers, HttpMethod.GET, URI.create("/users"));
+
+		ResponseEntity<String> response = testClient.exchange(requestEntity, String.class);
+		assertThat(response.getStatusCode().value()).isEqualTo(200);
+	}
+
+	@Test
+	void testPrivateAPIWithAuthEmpty() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "");
+
+		RequestEntity requestEntity = new RequestEntity(headers, HttpMethod.GET, URI.create("/users"));
+
+		ResponseEntity<String> response = testClient.exchange(requestEntity, String.class);
+		assertThat(response.getStatusCode().value()).isEqualTo(403);
+	}
+
+	@Test
+	void testPrivateAPIWithAuthPassed() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJJc3N1ZXIiOiJwcm9kdWN0LmlvIiwiZXhwIjoxNjA5NTA5NjAwLCJpYXQiOjE2MDk1MDI0MDAsIlN1YmplY3QiOiJ0ZXN0QHByb2R1Y3QuaW8ifQ.FnafR08_z78-pd6G3WKmr40V4dtcsgoE0mhS0_Q7EnsvDn6B35DD24AZ8JD0XNGL8JCKSjl2peaXRIgkcVUIvw");
+
+		RequestEntity requestEntity = new RequestEntity(headers, HttpMethod.GET, URI.create("/users"));
+
+		ResponseEntity<String> response = testClient.exchange(requestEntity, String.class);
+		assertThat(response.getStatusCode().value()).isEqualTo(403);
+	}
 }
