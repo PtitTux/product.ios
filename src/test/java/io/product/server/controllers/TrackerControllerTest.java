@@ -1,6 +1,8 @@
 package io.product.server.controllers;
 
 import io.product.server.BaseTestWithContainers;
+import io.product.server.controllers.resources.CreateTrackerResource;
+import io.product.server.exceptions.TrackerExistException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.testcontainers.utility.DockerImageName;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -37,5 +40,29 @@ class TrackerControllerTest
 		assertThat(response).isNotNull();
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.hasBody()).isTrue();
+	}
+
+	@Test
+	void testCreateTracker() {
+		CreateTrackerResource t = CreateTrackerResource.builder().name("testing").defaultTracker(false).build();
+
+		try
+		{
+			ResponseEntity<Object> response = controller.createTracker(t);
+			assertThat(response).isNotNull();
+			assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+			assertThat(response.hasBody()).isTrue();
+		}
+		catch (TrackerExistException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Test
+	void testCreateTrackerWithoutName() {
+		CreateTrackerResource t = CreateTrackerResource.builder().defaultTracker(false).build();
+
+		assertThatThrownBy(() -> controller.createTracker(t)).isInstanceOf(Exception.class);
 	}
 }
