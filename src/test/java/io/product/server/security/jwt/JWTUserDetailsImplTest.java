@@ -11,7 +11,7 @@ class JWTUserDetailsImplTest
 {
 
 	@Test
-	void validObject() {
+	void testValidObject() {
 		UUID id = UUID.randomUUID();
 		UserEntity john = UserEntity.builder().name("John").email("john@product.io").password("password").build();
 		john.setId(id);
@@ -23,6 +23,7 @@ class JWTUserDetailsImplTest
 		assertThat(details.getId()).isEqualTo(id);
 		assertThat(details.getName()).isEqualTo("John");
 		assertThat(details.getEmail()).isEqualTo("john@product.io");
+		assertThat(details.getUsername()).isEqualTo("john@product.io");
 		assertThat(details.getPassword()).isEqualTo("password");
 		assertThat(details.getLabel()).isEqualTo("{id:"+id+", name:John, email:john@product.io}");
 		assertThat(details.isAccountNonExpired()).isTrue();
