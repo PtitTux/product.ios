@@ -3,6 +3,7 @@ package io.product.server.security.jwt;
 import io.product.server.entities.UserEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.net.URI;
@@ -55,14 +57,7 @@ class JWTFilterTest
 
 	@Test
 	void testPrivateAPIWithAuth() {
-		Map<String,String> signup=new HashMap<>();
-		signup.put("email","john@product.io");
-		signup.put("name","John");
-		signup.put("password","P@ssw@rd");
-
-		testClient.postForEntity("/auth/signup",signup, String.class);
-
-		UserEntity john = UserEntity.builder().name("John").email("john@product.io").password("P@ssw@rd").build();
+		UserEntity john = UserEntity.builder().name("user-test").email("test@product.io").build();
 		String token = jwtUtils.generateToken(john);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", token);
@@ -75,14 +70,7 @@ class JWTFilterTest
 
 	@Test
 	void testPrivateAPIWithAuthBearer() {
-		Map<String,String> signup=new HashMap<>();
-		signup.put("email","john2@product.io");
-		signup.put("name","John");
-		signup.put("password","P@ssw@rd");
-
-		testClient.postForEntity("/auth/signup",signup, String.class);
-
-		UserEntity john = UserEntity.builder().name("John").email("john2@product.io").password("P@ssw@rd").build();
+		UserEntity john = UserEntity.builder().name("user-test").email("test@product.io").build();
 		String token = jwtUtils.generateToken(john);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Bearer "+token);
@@ -95,14 +83,7 @@ class JWTFilterTest
 
 	@Test
 	void testPrivateAPIWithAuthBearerLowercase() {
-		Map<String,String> signup=new HashMap<>();
-		signup.put("email","john2@product.io");
-		signup.put("name","John");
-		signup.put("password","P@ssw@rd");
-
-		testClient.postForEntity("/auth/signup",signup, String.class);
-
-		UserEntity john = UserEntity.builder().name("John").email("john2@product.io").password("P@ssw@rd").build();
+		UserEntity john = UserEntity.builder().name("user-test").email("test@product.io").build();
 		String token = jwtUtils.generateToken(john);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "bearer "+token);
