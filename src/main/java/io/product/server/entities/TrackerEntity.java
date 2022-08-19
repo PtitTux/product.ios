@@ -15,14 +15,17 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper=true)
 public class TrackerEntity extends BaseEntity
 {
-	@Column(name = "name", length = 255, nullable = false)
+	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Column(name = "description", length = 512, nullable = true)
+	@Column(name = "description", length = 512)
 	private String description;
 
 	@Column(name="default_tracker",columnDefinition = "boolean default true")
 	private boolean defaultTracker;
+
+	@Column(name = "color", length = 7)
+	private String color;
 
 
 	@ManyToMany(fetch = FetchType.LAZY)
