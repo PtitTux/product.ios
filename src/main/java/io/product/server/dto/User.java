@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
