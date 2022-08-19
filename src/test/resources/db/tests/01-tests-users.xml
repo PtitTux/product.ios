@@ -1,0 +1,19 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="tests-01" author="product.io" dbms="h2" >
+
+        <insert tableName="users">
+            <column name="id" value="02468817-ddf0-4e5b-95f4-15aa64fa0e85" />
+            <column name="name" value="user-test" />
+            <column name="email" value="test@product.io" />
+            <!-- manager -->
+            <column name="password" value="$2a$10$ET5E6i3Q9h189dzHrwE6gODC47lVJY/yrVrJfX8xZVVZiQrER17WS" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
+        </insert>
+
+
+
+    </changeSet>
+</databaseChangeLog>

@@ -5,7 +5,7 @@
 
 
 
-    <changeSet id="schema-00" author="product.io" >
+    <changeSet id="schema-00" author="product.io" dbms="postgresql">
 
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Add function for postgreSQL</comment>

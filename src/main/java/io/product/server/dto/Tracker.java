@@ -7,8 +7,16 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
-public class Role extends BaseBean
+public class Tracker extends BaseBean
 {
+
+
 	@NotNull
 	private String name;
+
+	private String description;
+
+	private String color;
+
+	private boolean defaultTracker;
 }

@@ -1,17 +1,16 @@
 package io.product.server.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
-public class User
+@EqualsAndHashCode(callSuper=true)
+public class User extends BaseBean
 {
-	private UUID id;
-
 	@NotNull
 	private String name;
 

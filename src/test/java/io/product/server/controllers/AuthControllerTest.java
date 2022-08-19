@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthControllerTest
 {
 	@Autowired
@@ -26,7 +26,7 @@ class AuthControllerTest
 	@Test
 	void testSignupValid()
 	{
-		SignupResource signup = SignupResource.builder().email("test@product.io").name("Test").password("Password").build();
+		SignupResource signup = SignupResource.builder().email("test-create@product.io").name("Test").password("Password").build();
 
 		try
 		{
@@ -53,14 +53,14 @@ class AuthControllerTest
 	@Test
 	void testSignupWithoutName()
 	{
-		SignupResource signup = SignupResource.builder().email("test@product.io").password("Password").build();
+		SignupResource signup = SignupResource.builder().email("test-create@product.io").password("Password").build();
 
 		assertThatThrownBy(() -> authController.signup(signup)).isInstanceOf(Exception.class);
 	}
 	@Test
 	void testSignupWithoutPassword()
 	{
-		SignupResource signup = SignupResource.builder().name("Test").email("test@product.io").build();
+		SignupResource signup = SignupResource.builder().name("Test").email("test-create@product.io").build();
 
 		assertThatThrownBy(() -> authController.signup(signup)).isInstanceOf(Exception.class);
 	}
@@ -68,13 +68,10 @@ class AuthControllerTest
 	@Test
 	void testSigninValid()
 	{
-		SignupResource signup = SignupResource.builder().email("test2@product.io").name("Test").password("Password").build();
-		SigninResource signin = SigninResource.builder().email("test2@product.io").password("Password").build();
+		SigninResource signin = SigninResource.builder().email("test@product.io").password("manager").build();
 
 		try
 		{
-			authController.signup(signup);
-
 			ResponseEntity<Object> response = authController.signin(signin);
 
 			assertThat(response).isNotNull();

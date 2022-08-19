@@ -1,0 +1,32 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="tests-02" author="product.io" dbms="h2" >
+
+        <!-- BUG-TESTING -->
+        <insert tableName="trackers">
+            <column name="id" value="0875ebf4-fff7-46b9-8694-b8e134421b09" />
+            <column name="name" value="testing-bug" />
+            <column name="color" value="#C62828" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
+        </insert>
+        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+            <comment>Inserting roles for bug</comment>
+            INSERT INTO tracker_creators  (tracker_id, role_id)
+            SELECT t.id, r.id
+            FROM  (SELECT id FROM trackers WHERE name='bug-testing') t
+            , (SELECT id FROM roles  WHERE name in ('productOwner', 'productManager', 'developer', 'reporter')) r
+        </sql>
+        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+            <comment>Inserting notification for bug</comment>
+            INSERT INTO tracker_notifications  (tracker_id, role_id)
+            SELECT t.id, r.id
+            FROM  (SELECT id FROM trackers WHERE name='bug-testing') t
+            , (SELECT id FROM roles  WHERE name in ('productManager', 'developer')) r
+        </sql>
+
+
+
+    </changeSet>
+</databaseChangeLog>

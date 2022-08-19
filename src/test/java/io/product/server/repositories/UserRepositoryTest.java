@@ -3,9 +3,12 @@ package io.product.server.repositories;
 import io.product.server.entities.UserEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @ActiveProfiles("test")
-@DataJpaTest
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserRepositoryTest
 {
 	@Autowired
@@ -48,13 +52,13 @@ class UserRepositoryTest
 
 	@Test
 	void createUserWithConstructor() {
-		UserEntity user = new UserEntity("email","password","name", now,true);
+		UserEntity user = new UserEntity("email2","password","name2", now,true);
 
 		user = userRepository.save(user);
 
 		assertThat(user.getId()).isNotNull();
-		assertThat(user.getName()).isEqualTo("name");
-		assertThat(user.getEmail()).isEqualTo("email");
+		assertThat(user.getName()).isEqualTo("name2");
+		assertThat(user.getEmail()).isEqualTo("email2");
 		assertThat(user.getPassword()).isEqualTo("password");
 		assertThat(user.getLastConnection()).isEqualTo(now);
 		assertThat(user.isStatus()).isTrue();
