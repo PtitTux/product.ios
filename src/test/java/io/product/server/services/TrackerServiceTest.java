@@ -1,18 +1,11 @@
 package io.product.server.services;
 
 import io.product.server.dto.Tracker;
-import io.product.server.dto.User;
 import io.product.server.entities.TrackerEntity;
-import io.product.server.entities.UserEntity;
 import io.product.server.exceptions.TrackerExistException;
-import io.product.server.exceptions.UserExistException;
-import io.product.server.exceptions.UserNotExistException;
-import io.product.server.exceptions.UserPasswordNotMatchException;
+import io.product.server.exceptions.TrackerNotExistException;
 import io.product.server.repositories.TrackerRepository;
-import io.product.server.repositories.UserRepository;
-import io.product.server.security.jwt.JWTUtils;
 import io.product.server.services.impl.TrackerServiceImpl;
-import io.product.server.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,9 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,12 +45,13 @@ class TrackerServiceTest
 		defaultTracker = TrackerEntity.builder().name("defaultTracker").description("description").defaultTracker(true).build();
 		anothertracker = TrackerEntity.builder().name("anotherTracker").description("description").defaultTracker(false).build();
 		anothertracker.setId(UUID.randomUUID());
+		defaultTracker.setId(UUID.randomUUID());
 	}
 
 	@Test
 	void findAll()
 	{
-		when(dao.findAll()).thenReturn(List.of(defaultTracker,anothertracker));
+		when(dao.findAll()).thenReturn(List.of(defaultTracker, anothertracker));
 
 		//test
 		List<Tracker> list = service.findAll();
@@ -70,7 +61,8 @@ class TrackerServiceTest
 	}
 
 	@Test
-	void createTrackerWithoutDefault() {
+	void createTrackerWithoutDefault()
+	{
 		when(dao.findByName(any())).thenReturn(Optional.empty());
 		when(dao.save(any())).thenReturn(anothertracker);
 
@@ -89,7 +81,8 @@ class TrackerServiceTest
 	}
 
 	@Test
-	void createTrackerWithDefault() {
+	void createTrackerWithDefault()
+	{
 		when(dao.findByName(any())).thenReturn(Optional.empty());
 		when(dao.save(any())).thenReturn(defaultTracker);
 
@@ -108,9 +101,71 @@ class TrackerServiceTest
 	}
 
 	@Test
-	void createTrackerWithNameExist() {
+	void createTrackerWithNameExist()
+	{
 		when(dao.findByName(any())).thenReturn(Optional.of(anothertracker));
 
 		assertThatThrownBy(() -> service.createTracker("testing", null, false)).isInstanceOf(TrackerExistException.class);
+	}
+
+	@Test
+	void getTrackerWithNullId()
+	{
+		assertThatThrownBy(() -> service.getTrackerById(null)).isInstanceOf(TrackerNotExistException.class);
+	}
+
+	@Test
+	void getTrackerWithNotExistId()
+	{
+		when(dao.findById(any())).thenReturn(Optional.empty());
+		assertThatThrownBy(() -> service.getTrackerById(UUID.randomUUID())).isInstanceOf(TrackerNotExistException.class);
+	}
+
+	@Test
+	void getTrackerWithExistId()
+	{
+		when(dao.findById(any())).thenReturn(Optional.of(defaultTracker));
+		try
+		{
+			Tracker t = service.getTrackerById(UUID.randomUUID());
+
+			assertThat(t.getName()).isEqualTo("defaultTracker");
+			assertThat(t.isDefaultTracker()).isTrue();
+		}
+		catch (TrackerNotExistException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Test
+	void updateTrackerValid()
+	{
+		when(dao.findById(any())).thenReturn(Optional.of(defaultTracker));
+		when(dao.save(any())).thenReturn(anothertracker);
+
+		try
+		{
+			Tracker toUpdate = new Tracker();
+			toUpdate.setId(UUID.randomUUID());
+
+			Tracker t = service.updateTracker(toUpdate);
+
+			assertThat(t.getId()).isEqualTo(anothertracker.getId());
+		}
+		catch (TrackerNotExistException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Test
+	void updateTrackerUnvalid()
+	{
+		when(dao.findById(any())).thenReturn(Optional.empty());
+		Tracker toUpdate = new Tracker();
+		toUpdate.setId(UUID.randomUUID());
+
+		assertThatThrownBy(() -> service.updateTracker(toUpdate)).isInstanceOf(TrackerNotExistException.class);
 	}
 }
