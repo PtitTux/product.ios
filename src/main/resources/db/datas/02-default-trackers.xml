@@ -8,7 +8,7 @@
         <insert tableName="trackers">
             <column name="name" value="bug" />
             <column name="color" value="#C62828" />
-            <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for bug</comment>
@@ -29,7 +29,7 @@
         <insert tableName="trackers">
             <column name="name" value="enhancement" />
             <column name="color" value="#558B2F" />
-            <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for enhancement</comment>
@@ -50,7 +50,7 @@
         <insert tableName="trackers">
             <column name="name" value="evolution" />
             <column name="color" value="#00838F" />
-            <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for evolution</comment>
@@ -71,7 +71,7 @@
         <insert tableName="trackers">
             <column name="name" value="documentation" />
             <column name="color" value="#4527A0" />
-            <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for documentation</comment>
@@ -92,7 +92,7 @@
         <insert tableName="trackers">
             <column name="name" value="security" />
             <column name="color" value="#E91E63" />
-            <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for security</comment>
@@ -113,7 +113,7 @@
         <insert tableName="trackers">
             <column name="name" value="test" />
             <column name="color" value="#283593" />
-            <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for test</comment>
@@ -134,7 +134,7 @@
         <insert tableName="trackers">
             <column name="name" value="performance" />
             <column name="color" value="#4E342E" />
-            <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for performance</comment>
@@ -155,7 +155,7 @@
         <insert tableName="trackers">
             <column name="name" value="support" />
             <column name="color" value="#F9A825" />
-            <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
             <column name="default_tracker" value="true" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
@@ -177,7 +177,7 @@
         <insert tableName="trackers">
             <column name="name" value="idea" />
             <column name="color" value="#6A1B9A" />
-            <column name="created_at" value="2022-07-25, 12:00:00" />
+            <column name="created_at" valueDate="2022-07-25T00:00:00" />
         </insert>
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             <comment>Inserting roles for idea</comment>

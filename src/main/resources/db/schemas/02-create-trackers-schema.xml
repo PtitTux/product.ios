@@ -5,6 +5,9 @@
     <property name="uuid_type" value="UUID" dbms="postgresql"/>
     <property name="uuid_function" value="uuid_generate_v4()" dbms="postgresql"/>
 
+    <property name="uuid_type" value="uuid" dbms="h2"/>
+    <property name="uuid_function" value="random_uuid()" dbms="h2"/>
+
     <changeSet id="schema-02" author="product.io" >
 
         <createTable tableName="trackers" remarks="Create tracker table">
@@ -23,19 +26,19 @@
         
         <createTable tableName="tracker_creators">
             <column name="tracker_id" type="UUID">
-                <constraints nullable="false" foreignKeyName="fk_tracker" referencedColumnNames="id" referencedTableName="trackers"/>
+                <constraints nullable="false" foreignKeyName="fk_tracker_creator" referencedColumnNames="id" referencedTableName="trackers"/>
             </column>
             <column name="role_id" type="UUID">
-                <constraints nullable="false"  foreignKeyName="fk_role" referencedColumnNames="id" referencedTableName="roles"/>
+                <constraints nullable="false"  foreignKeyName="fk_role_creator_tracker" referencedColumnNames="id" referencedTableName="roles"/>
             </column>
         </createTable>
 
         <createTable tableName="tracker_notifications">
             <column name="tracker_id" type="UUID">
-                <constraints nullable="false" foreignKeyName="fk_tracker" referencedColumnNames="id" referencedTableName="trackers"/>
+                <constraints nullable="false" foreignKeyName="fk_tracker_notification" referencedColumnNames="id" referencedTableName="trackers"/>
             </column>
             <column name="role_id" type="UUID">
-                <constraints nullable="false"  foreignKeyName="fk_role" referencedColumnNames="id" referencedTableName="roles"/>
+                <constraints nullable="false"  foreignKeyName="fk_role_notification_tracker" referencedColumnNames="id" referencedTableName="roles"/>
             </column>
         </createTable>
     </changeSet>
