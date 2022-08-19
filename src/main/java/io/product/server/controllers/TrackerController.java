@@ -54,7 +54,7 @@ public class TrackerController
 		Tracker tracker = this.service.getTrackerById(UUID.fromString(id));
 
 		// Update tracker attributes
-		body.forEach((k, v) -> tracker.setProperty(k,v));
+		body.forEach(tracker::setProperty);
 
 		this.service.updateTracker(tracker);
 
