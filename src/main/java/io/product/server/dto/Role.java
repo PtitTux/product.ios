@@ -1,15 +1,15 @@
 package io.product.server.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
-public class Role
+@EqualsAndHashCode(callSuper=true)
+public class Role extends BaseBean
 {
-	private UUID id;
-
 	@NotNull
 	private String name;
 }

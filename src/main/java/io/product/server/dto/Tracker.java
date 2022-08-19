@@ -1,19 +1,23 @@
 package io.product.server.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
-public class Tracker
+@EqualsAndHashCode(callSuper=true)
+public class Tracker extends BaseBean
 {
-	private UUID id;
+
 
 	@NotNull
 	private String name;
 
 	private String description;
+
+	private String color;
 
 	private boolean defaultTracker;
 }
